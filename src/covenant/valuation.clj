@@ -1,5 +1,5 @@
 (ns covenant.valuation
-  "A valuation model for Covenant contracts.
+  "A valuation model for covenant contracts.
 
 Note that I've gone with a binding modification approach to model
 extensibility because protocols make it difficult to formulate
@@ -40,7 +40,9 @@ environment).
                                (o/values (.observable contract) t)
                                (o/values (.contract contract) t))))
 
-(def *currency*)
+(def ^{:doc "The currency to use for this model. All contracts evaluated with this model will be evaluated into this currency"}
+     *currency*
+     :usd)
 
 (defn *exch*
   "Given a time series and a currency, return a seq of the exchange
@@ -90,21 +92,22 @@ given that they may be realized until the first True value in the observable."
   "Use a model that makes the following assumptions:
 
 - the exchange rate between any two currencies is 1:1
-- we have perfect information about the observables underlying a contract
-- an 'anytime' contract will always be acquired as soon as possible
-- an 'until' contract will always be acquired as late as possible (but will always be acquired)
+- we have perfect information about the observables underlying a
+  contract and therefore have no reason to discount contracts that
+  rely on future events
+- we will not be using `anytime` and `until`
 
 This means that:
 
 - `*exch` will return a constant `seq` of `1`
-- `*discount*` will always return the unmodified contract values `seq`
-- `*snell*` is equivalent to `*discount*`
-- `*anytime*` will return the unmodified contract values `seq` until the
-  first time the observed values `seq` is true. After that it will
-  return a constantly 0 `seq`.
+- `*discount*` will return a `seq` that returns a constant value up
+  until the first true value in the Observable, and then 0. The
+  constant value will be the value of the Contract when the Observable
+  is first true
+- we can skip the implementation of `*absorb*` and `*snell*`
 
-Note that there's a very good chance I've completely whiffed on snell and anytime -
-IANA financial engineer - feedback requested!
+This is obviously pretty unsatisfactory - patches welcome, especially from
+financial/statistical minded folks.
 "
   []
   (def *currency* :usd)

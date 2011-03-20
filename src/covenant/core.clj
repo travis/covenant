@@ -1,14 +1,30 @@
 (ns covenant.core
+  "The core of the library is small - only 10 primitives.
+
+We define the primitives using a custom def form, which we introduce
+in this module."
   (:refer-clojure :exclude [and or when cond])
   (:require [clojure.string :as s]))
 
 (defmacro defcontract
+  "Define a type and a helper function for instantiating it.
+
+The helper function isn't strictly necessary, but makes it
+easier to use higher order functional programming facilities when
+creating new contracts and provides a place to hang a docstring.
+
+The code we'd like to generate looks like:
+
+ (deftype Zero [])
+ (defn zero \"A contract representing 0\" [])
+"
   [name args & [comment]]
   (let [tname (symbol (s/capitalize (str name)))]
     `(do
        (deftype ~tname ~args)
        (defn ~name ~(str comment) ~args (new ~tname ~@args)))))
 
+;; Now, define each of the contract primitives.
 (defcontract zero []
   "A contract to receive nothing.")
 (defcontract one [currency]
