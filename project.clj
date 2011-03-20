@@ -3,7 +3,7 @@
 
 For more information and the original paper, see
 
-http://research.microsoft.com/en-us/um/people/simonpj/papers/financial-contracts/contracts-icfp.htm
+ [http://research.microsoft.com/en-us/um/people/simonpj/papers/financial-contracts/contracts-icfp.htm](http://research.microsoft.com/en-us/um/people/simonpj/papers/financial-contracts/contracts-icfp.htm)
 
 This library can be used to model and value financial contracts."
   :dependencies [[org.clojure/clojure "1.2.0"]

@@ -1,4 +1,6 @@
 (ns covenant.examples.bond
+  "A simple example to demonstrate the library. Model a 4 payment bond with
+an interest rate of 1.5%."
   (:require
    [covenant.core :as c]
    [covenant.valuation :as v]
