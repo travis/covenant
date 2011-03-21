@@ -63,4 +63,4 @@ is supported directly by this macro."
 
 (defobservable schedule
   [sched]
-  (values [_ t] (map #(sched %) t)))
+  (values [_ t] (map sched t)))

@@ -46,6 +46,7 @@ an interest rate of 1.5%."
                            (c/and (payment-at 2)
                                   (c/and (payment-at 3)
                                          (payment-at 4)))))))
+
 (comment
   (o/values four-payment-bond [0 1 2 3 4 5]))
 
