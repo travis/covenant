@@ -48,5 +48,6 @@ an interest rate of 1.5%."
                                          (payment-at 4)))))))
 
 (comment
+  (v/use-default-model)
   (o/values four-payment-bond [0 1 2 3 4 5]))
 
